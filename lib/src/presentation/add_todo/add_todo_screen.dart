@@ -25,21 +25,6 @@ class AddTodoScreen extends StatelessWidget {
               child: Column(
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Add title',
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 2, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(15),
-                        )),
-                  ),
-                  const SizedBox(height: 16.0),
-                  TextFormField(
                     maxLines: 5,
                     decoration: InputDecoration(
                         alignLabelWithHint: true,
