@@ -1,5 +1,4 @@
 import 'package:doit/src/infrastructure/utils/constant/lottie_assets.dart';
-import 'package:doit/src/infrastructure/utils/constant/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

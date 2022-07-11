@@ -11,14 +11,19 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i4;
+import 'package:doit/src/infrastructure/navigation/session_guard.dart' as _i6;
 import 'package:doit/src/presentation/add_todo/add_todo_screen.dart' as _i3;
 import 'package:doit/src/presentation/dashboard/dashboard_screen.dart' as _i2;
 import 'package:doit/src/presentation/login/login_screen.dart' as _i1;
 import 'package:flutter/material.dart' as _i5;
 
 class AppRouter extends _i4.RootStackRouter {
-  AppRouter([_i5.GlobalKey<_i5.NavigatorState>? navigatorKey])
+  AppRouter(
+      {_i5.GlobalKey<_i5.NavigatorState>? navigatorKey,
+      required this.sessionGuard})
       : super(navigatorKey);
+
+  final _i6.SessionGuard sessionGuard;
 
   @override
   final Map<String, _i4.PageFactory> pagesMap = {
@@ -40,7 +45,8 @@ class AppRouter extends _i4.RootStackRouter {
   List<_i4.RouteConfig> get routes => [
         _i4.RouteConfig('/#redirect',
             path: '/', redirectTo: '/login-screen', fullMatch: true),
-        _i4.RouteConfig(LoginScreenRoute.name, path: '/login-screen'),
+        _i4.RouteConfig(LoginScreenRoute.name,
+            path: '/login-screen', guards: [sessionGuard]),
         _i4.RouteConfig(DashboardScreenRoute.name, path: '/dashboard-screen'),
         _i4.RouteConfig(AddTodoScreenRoute.name, path: '/add-screen')
       ];

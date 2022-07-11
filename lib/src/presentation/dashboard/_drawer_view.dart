@@ -17,9 +17,7 @@ class _DrawerView extends StatelessWidget {
               ),
               title: const Text("Welcome"),
               subtitle: const Text("Joe Doe"),
-              onTap: () {
-                AutoRouter.of(context).pop();
-              },
+              onTap: () => AutoRouter.of(context).pop(),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -40,6 +38,7 @@ class _DrawerView extends StatelessWidget {
               title: const Text("Log out"),
               onTap: () {
                 AutoRouter.of(context).pop();
+                context.read<LoginCubit>().signOut();
               },
             )
           ],
