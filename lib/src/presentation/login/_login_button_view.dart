@@ -15,7 +15,8 @@ class _LoginButtonView extends StatelessWidget {
             icon: Ionicons.logo_google,
             label: Strings.loginWithGoogle,
             colorButton: Colors.red,
-            onPressed: () => context.read<LoginCubit>().signInWithGoogle(),
+            onPressed: () =>
+                context.read<AuthenticationCubit>().signInWithGoogle(),
           ),
         ),
         const SizedBox(height: 16.0),
@@ -25,7 +26,7 @@ class _LoginButtonView extends StatelessWidget {
             icon: Ionicons.logo_facebook,
             label: Strings.loginWithFB,
             colorButton: Colors.blue,
-            onPressed: () => context.read<LoginCubit>().signInWithFB(),
+            onPressed: () => context.read<AuthenticationCubit>().signInWithFB(),
           ),
         )
       ],

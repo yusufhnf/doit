@@ -47,6 +47,13 @@ dependencies:
   flutter_native_splash: ^2.2.4
   shared_preferences: ^2.0.15
   flutter_secure_storage: ^5.0.2
+  geolocator: ^9.0.0
+  cloud_firestore: ^3.2.1
+  flutter_datetime_picker: ^1.5.1
+  intl:
+  rxdart:
+  flutter_local_notifications: ^9.7.0
+  timezone: ^0.8.0
 
 dev_dependencies:
   flutter_test:

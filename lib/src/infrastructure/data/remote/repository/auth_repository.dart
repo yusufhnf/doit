@@ -19,19 +19,15 @@ class AuthRepository {
 
   Future<String?> getUserToken() async => await _preferenceStorage.getToken();
 
-  Future<String> _userToken(UserCredential userCredential) async {
-    final token = await userCredential.user?.getIdToken();
-    if (token != null) return token;
-
-    throw const RepositoryException('Failed to get Token');
-  }
-
   Future<String?> signInWithGoogle() async {
     final result = await _firebaseSocialAuthService.signInWithGoogle();
     if (result != null) {
-      final token = await _userToken(result);
-      _preferenceStorage.setToken(token);
-      return token;
+      final user = result.user;
+      if (user != null) {
+        _firebaseSocialAuthService.createNewUser(user);
+        _preferenceStorage.setToken(user.uid);
+        return user.uid;
+      }
     }
     return null;
   }
@@ -39,8 +35,12 @@ class AuthRepository {
   Future<String?> signInWithFB() async {
     final result = await _firebaseSocialAuthService.signInWithFacebook();
     if (result != null) {
-      final token = await _userToken(result);
-      _preferenceStorage.setToken(token);
+      final user = result.user;
+      if (user != null) {
+        _firebaseSocialAuthService.createNewUser(user);
+        _preferenceStorage.setToken(user.uid);
+        return user.uid;
+      }
     }
 
     return null;

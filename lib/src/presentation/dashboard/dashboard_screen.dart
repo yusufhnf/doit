@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:doit/src/infrastructure/navigation/routes.gr.dart';
 import 'package:doit/src/infrastructure/utils/constant/strings.dart';
+import 'package:doit/src/infrastructure/widgets/empty_view.dart';
 import 'package:doit/src/infrastructure/widgets/info_container_widget.dart';
+import 'package:doit/src/infrastructure/widgets/loading_view.dart';
+import 'package:doit/src/presentation/dashboard/dashboard_bloc/dashboard_cubit.dart';
 import 'package:doit/src/presentation/dashboard/todo_item.dart';
-import 'package:doit/src/presentation/login/login_bloc/login_cubit.dart';
+import 'package:doit/src/presentation/login/login_bloc/authentication_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
@@ -20,8 +23,15 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<LoginCubit>(
-      create: (context) => LoginCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthenticationCubit>(
+          create: (context) => AuthenticationCubit(),
+        ),
+        BlocProvider<DashboardCubit>(
+          create: (context) => DashboardCubit()..getTodoData(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: const Text(Strings.yourTaskLabel),
@@ -30,13 +40,17 @@ class DashboardScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () =>
-              AutoRouter.of(context).push(const AddTodoScreenRoute()),
+          onPressed: () async {
+            await AutoRouter.of(context).push(const AddTodoScreenRoute());
+          },
           backgroundColor: Colors.blue,
-          child: const Icon(Ionicons.add_outline),
+          child: const Icon(
+            Ionicons.add_outline,
+            color: Colors.white,
+          ),
         ),
         drawer: const _DrawerView(),
-        body: BlocListener<LoginCubit, LoginState>(
+        body: BlocListener<AuthenticationCubit, AuthenticationState>(
           listener: (context, state) {
             if (state.loginProcess == LoginProcess.success) {
               LoadingDialog.close(context);

@@ -38,7 +38,7 @@ class _DrawerView extends StatelessWidget {
               title: const Text("Log out"),
               onTap: () {
                 AutoRouter.of(context).pop();
-                context.read<LoginCubit>().signOut();
+                context.read<AuthenticationCubit>().signOut();
               },
             )
           ],

@@ -1,12 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../helper/error_handler.dart';
+import '../../models/user_model.dart';
 
 class FirebaseSocialAuthService {
   final _firebaseAuth = FirebaseAuth.instance;
   final _fbAuth = FacebookAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
 
   Stream<User?> watchUser() => _firebaseAuth.authStateChanges();
   User? get getUser => _firebaseAuth.currentUser;
@@ -30,6 +33,21 @@ class FirebaseSocialAuthService {
       throw AuthException(errorMessage: e.message);
     } catch (e) {
       throw const AuthException();
+    }
+  }
+
+  Future<bool> createNewUser(User user) async {
+    try {
+      await _firestore.collection("users").doc(user.uid).set({
+        "name": user.displayName,
+        "email": user.email,
+        "displayImage": user.photoURL
+      });
+      return true;
+    } on FirebaseException catch (e) {
+      throw AuthException(errorMessage: e.message);
+    } catch (e) {
+      return false;
     }
   }
 
