@@ -50,9 +50,7 @@ class BottomDialog {
               SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                      onPressed: () {
-                        AutoRouter.of(context).pop();
-                      },
+                      onPressed: () => AutoRouter.of(context).pop(),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blue,
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
