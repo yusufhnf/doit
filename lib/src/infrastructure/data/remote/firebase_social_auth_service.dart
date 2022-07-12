@@ -79,10 +79,10 @@ class FirebaseSocialAuthService {
         result.status == LoginStatus.cancelled) {
       return null;
     }
-    final userProfile = await _fbAuth.getUserData(fields: 'email');
-    final faceBookOauth = FacebookAuthProvider.credential(accessTokenFB.token);
-    final credential = await _firebaseSignInWithCredential(
-        userProfile['email'], faceBookOauth);
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(accessTokenFB.token);
+    final credential =
+        await _firebaseAuth.signInWithCredential(facebookAuthCredential);
 
     return credential;
   }
