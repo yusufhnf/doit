@@ -5,7 +5,7 @@ import 'package:doit/src/infrastructure/utils/constant/lottie_assets.dart';
 import 'package:doit/src/infrastructure/utils/constant/strings.dart';
 import 'package:doit/src/infrastructure/widgets/loading_dialog.dart';
 import 'package:doit/src/infrastructure/widgets/login_social_media_button.dart';
-import 'package:doit/src/presentation/login/login_bloc/login_cubit.dart';
+import 'package:doit/src/presentation/login/login_bloc/authentication_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
@@ -25,9 +25,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider<LoginCubit>(
-        create: (context) => LoginCubit(),
-        child: BlocListener<LoginCubit, LoginState>(
+      body: BlocProvider<AuthenticationCubit>(
+        create: (context) => AuthenticationCubit(),
+        child: BlocListener<AuthenticationCubit, AuthenticationState>(
           listener: (context, state) async {
             if (state.loginProcess == LoginProcess.success) {
               LoadingDialog.close(context);

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 class ErrorHandler {
   final String _errorMessage;
 
@@ -14,6 +16,10 @@ class ErrorHandler {
       return ErrorHandler._(exception.getErrorMessage);
     } else if (exception is ConnectivityException) {
       return ErrorHandler._(exception.getErrorMessage);
+    } else if (exception is FirebaseAuthException) {
+      return ErrorHandler._(exception.message ?? "Authentication problem");
+    } else if (exception is FirebaseException) {
+      return ErrorHandler._(exception.message ?? "Firebase problem");
     }
 
     return const ErrorHandler._('Something wrong');

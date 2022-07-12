@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:doit/src/infrastructure/utils/constant/lottie_assets.dart';
 import 'package:doit/src/infrastructure/utils/constant/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 class BottomDialog {
@@ -25,7 +26,7 @@ class BottomDialog {
                     : isSuccess == true
                         ? LottieAssets.success
                         : LottieAssets.failed,
-                height: 96,
+                width: 150.w,
               ),
               const SizedBox(
                 height: 16.0,
@@ -36,14 +37,20 @@ class BottomDialog {
                     : isSuccess == true
                         ? Strings.successLabel
                         : Strings.failedLabel,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.black),
               ),
               const SizedBox(
                 height: 8,
               ),
-              Text(
-                description,
-                textAlign: TextAlign.center,
-              ),
+              Text(description,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.black)),
               const SizedBox(
                 height: 24,
               ),
