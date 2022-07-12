@@ -5,19 +5,23 @@ enum DashboardStateType { initial, loading, success, empty, error }
 class DashboardState extends Equatable {
   const DashboardState(
       {this.dashboardStateType = DashboardStateType.initial,
-      this.todos = const []});
+      this.todos = const [],
+      this.currentUser});
 
   final DashboardStateType dashboardStateType;
   final List<TodoModel> todos;
+  final User? currentUser;
 
   @override
-  List<Object> get props => [dashboardStateType, todos];
+  List<Object> get props => [dashboardStateType, todos, currentUser ?? User];
 
   DashboardState copyWith(
       {DashboardStateType? dashboardStateTypeValue,
-      List<TodoModel>? todoValue}) {
+      List<TodoModel>? todoValue,
+      User? currentUserValue}) {
     return DashboardState(
         dashboardStateType: dashboardStateTypeValue ?? dashboardStateType,
-        todos: todoValue ?? todos);
+        todos: todoValue ?? todos,
+        currentUser: currentUserValue);
   }
 }

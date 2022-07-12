@@ -12,7 +12,6 @@ class FirebaseSocialAuthService {
   final _firestore = FirebaseFirestore.instance;
 
   Stream<User?> watchUser() => _firebaseAuth.authStateChanges();
-  User? get getUser => _firebaseAuth.currentUser;
 
   Future<bool> isSignedIn() async {
     final User? user = FirebaseAuth.instance.currentUser;
@@ -49,6 +48,11 @@ class FirebaseSocialAuthService {
     } catch (e) {
       return false;
     }
+  }
+
+  Future<User?> getUser() async {
+    final user = _firebaseAuth.currentUser;
+    return user;
   }
 
   Future<UserCredential?> signInWithGoogle() async {

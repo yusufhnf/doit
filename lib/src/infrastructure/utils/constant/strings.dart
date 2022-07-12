@@ -11,6 +11,9 @@ class Strings {
   static const String successLabel = "Success";
   static const String failedLabel = "Failed";
   static const String infoLabel = "Info";
+  static const String saveLabel = "SAVE";
+  static const String okLabel = "OK";
+  static const String contentFormLabel = "Describe your task...";
   static const String addDateLabel = "Add Datetime";
   static const String loadingLabel = "Please wait...";
   static const String addTaskSuccessMessage = "Create task successful";

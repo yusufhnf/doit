@@ -18,7 +18,7 @@ class AddTodoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Task"),
+        title: const Text(Strings.addTaskLabel),
         elevation: 0.0,
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -62,7 +62,7 @@ class AddTodoScreen extends StatelessWidget {
                                 .setContentText(value),
                             decoration: InputDecoration(
                                 alignLabelWithHint: true,
-                                labelText: 'Describe your task...',
+                                labelText: Strings.contentFormLabel,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       width: 1, color: Colors.grey),
@@ -113,7 +113,7 @@ class AddTodoScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                               ),
-                              child: const Text("SAVE"))),
+                              child: const Text(Strings.saveLabel))),
                     )
                   ],
                 ),

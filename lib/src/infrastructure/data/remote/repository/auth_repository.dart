@@ -2,8 +2,6 @@ import 'package:doit/src/infrastructure/data/local/preference_storage.dart';
 import 'package:doit/src/infrastructure/data/remote/firebase_social_auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../helper/error_handler.dart';
-
 class AuthRepository {
   final FirebaseSocialAuthService _firebaseSocialAuthService =
       FirebaseSocialAuthService();
@@ -18,6 +16,11 @@ class AuthRepository {
       await _preferenceStorage.setToken(token);
 
   Future<String?> getUserToken() async => await _preferenceStorage.getToken();
+
+  Future<User?> getUser() async {
+    final currentUser = await _firebaseSocialAuthService.getUser();
+    return currentUser;
+  }
 
   Future<String?> signInWithGoogle() async {
     final result = await _firebaseSocialAuthService.signInWithGoogle();

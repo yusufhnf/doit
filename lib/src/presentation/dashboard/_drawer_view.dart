@@ -5,45 +5,39 @@ class _DrawerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: SafeArea(
-        child: Column(
-          children: [
-            ListTile(
-              leading: const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://i.pinimg.com/736x/68/16/3e/68163efb3c2201721d8e681cde6aef2b.jpg"),
-                radius: 40,
-              ),
-              title: const Text("Welcome"),
-              subtitle: const Text("Joe Doe"),
-              onTap: () => AutoRouter.of(context).pop(),
+    return BlocBuilder<DashboardCubit, DashboardState>(
+      builder: (context, state) {
+        if (state.dashboardStateType == DashboardStateType.loading) {
+          return const LoadingView();
+        }
+        return Drawer(
+          child: SafeArea(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(state
+                            .currentUser?.displayName ??
+                        "https://i.pinimg.com/736x/68/16/3e/68163efb3c2201721d8e681cde6aef2b.jpg"),
+                    radius: 40,
+                  ),
+                  title: const Text("Welcome"),
+                  subtitle: Text(state.currentUser?.displayName ?? "-"),
+                  onTap: () => AutoRouter.of(context).pop(),
+                ),
+                const Divider(),
+                ListTile(
+                  title: const Text(Strings.logOutLabel),
+                  onTap: () {
+                    AutoRouter.of(context).pop();
+                    context.read<AuthenticationCubit>().signOut();
+                  },
+                )
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: const [
-                  Expanded(
-                      child: InfoContainerWidget(
-                          label: Strings.allTaskLabel, count: 13)),
-                  SizedBox(width: 8),
-                  Expanded(
-                      child: InfoContainerWidget(
-                          label: Strings.taskDoneLabel, count: 2)),
-                ],
-              ),
-            ),
-            const Divider(),
-            ListTile(
-              title: const Text("Log out"),
-              onTap: () {
-                AutoRouter.of(context).pop();
-                context.read<AuthenticationCubit>().signOut();
-              },
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
