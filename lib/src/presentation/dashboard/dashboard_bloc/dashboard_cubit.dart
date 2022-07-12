@@ -30,7 +30,9 @@ class DashboardCubit extends Cubit<DashboardState> {
               dashboardStateType: DashboardStateType.empty));
         } else {
           emit(DashboardState(
-              dashboardStateType: DashboardStateType.success, todos: value));
+              dashboardStateType: DashboardStateType.success,
+              todos: value,
+              currentUser: currentUser));
         }
       });
     } catch (e) {
